@@ -1,7 +1,7 @@
 import ast
 import boto3
 import requests
-from playsound import playsound
+import os
 
 GALNET_URL = "https://www.alpha-orbital.com/galnet-feed"
 
@@ -11,7 +11,7 @@ def fetch_galnet_news(galnet_url: str) -> str:
     news_items = response.text
 
     news_item_list = ast.literal_eval(news_items)
-    news_item = news_item_list[5]
+    news_item = news_item_list[7]
 
     news_story = str(news_item['content']).replace('<br \/>', '\n')
     news_story = news_story.replace('\n  ', '\n')
@@ -19,7 +19,7 @@ def fetch_galnet_news(galnet_url: str) -> str:
     news_item_str = f"{news_item['title']}.  {news_item['date']}.  {news_story}."
     news_item_str = news_item_str.replace('..', '.')
 
-    string_to_print = f"""\nTitle: {news_item['title']}\n\nDate: {news_item['date']}\n\n{news_story}"""
+    string_to_print = f"""\n{news_item['title']}\n\n{news_item['date']}\n\n{news_story}"""
 
     string_to_print = string_to_print.replace('<br \/>', '\n')
     print(string_to_print)
@@ -36,7 +36,7 @@ def send_to_polly(input_string: str):
     with open('speech.mp3', 'wb') as f:
         f.write(response['AudioStream'].read())
 
-    playsound('speech.mp3')
+    os.system("afplay speech.mp3")
 
 
 def main():
