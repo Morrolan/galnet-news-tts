@@ -11,7 +11,7 @@ def fetch_galnet_news(galnet_url: str) -> str:
     news_items = response.text
 
     news_item_list = ast.literal_eval(news_items)
-    news_item = news_item_list[7]
+    news_item = news_item_list[0]
 
     news_story = str(news_item['content']).replace('<br \/>', '\n')
     news_story = news_story.replace('\n  ', '\n')
