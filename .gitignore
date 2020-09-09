@@ -1,3 +1,8 @@
 env/
+venv/
+test/
+speech_with_effects.mp3
 *.mp3
 .idea/
+test.py
+/__pycache__
